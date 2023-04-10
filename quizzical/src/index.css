@@ -62,6 +62,7 @@ body{
 
 .question > h1 {
     font-size: 1.75vw;
+    color: #293264;
 }
 
 .answerdiv {
@@ -78,4 +79,14 @@ body{
     background-color: transparent;
     border-radius: 8px;
     border: 1px solid #4D5B9E;
+} 
+
+input[type='radio'] {
+    appearance:none;
+
+}
+
+input[type='radio']:checked + label {
+    background-color: #D6DBF5;
+    border: none
 }

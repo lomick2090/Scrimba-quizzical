@@ -25,7 +25,13 @@ export default function App() {
 
     const questionElements = questions.map(question => {
         return (
-            <Question question={question.question} incorrect_answers={question.incorrect_answers} correct_answer={question.correct_answer} key={question.question}/>
+            <Question 
+                question={question.question} 
+                incorrect_answers={question.incorrect_answers} 
+                correct_answer={question.correct_answer} 
+                key={question.question}
+                for={question.question}
+            />
         )
 
     })

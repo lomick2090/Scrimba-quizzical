@@ -11,7 +11,7 @@ export default function Question(props) {
         let answerElements = []
         for (let i = 0; i < answerArray.length; i++ ) {
             let correct = (i == correctIndex) ? true : false;
-            answerElements.push(<Answer className='answer' value={answerArray[i]} key={i} correct={correct} />)
+            answerElements.push(<Answer className='answer' value={answerArray[i]} key={i} correct={correct} name={props.for} />)
         }  
         
 
