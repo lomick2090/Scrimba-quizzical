@@ -18,21 +18,14 @@ export default function App() {
                         correct_answer: (input.correct_answer).replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&eacute;/g, 'e').replace(/&pi;/g, 'pi')
                     }) 
                 })
-                console.log(questionData)
                 setQuestions(questionData);
             })
     }
 
-    React.useEffect(() => {
-        fetch('https://opentdb.com/api.php?amount=1')
-        .then(result => result.json())
-        //.then(data => console.log(data.results))
-        }, []
-    )
 
     const questionElements = questions.map(question => {
         return (
-            <Question question={question.question} incorrect_answers={question.incorrect_answers} correct_answer={question.correct_answer}/>
+            <Question question={question.question} incorrect_answers={question.incorrect_answers} correct_answer={question.correct_answer} key={question.question}/>
         )
 
     })
@@ -41,10 +34,9 @@ export default function App() {
         setStarted(true);
         initializeQuestions();
     }
-    //console.log(questionElements)
 
     return (
-        <div className={`main ${(started ? '' : 'startpage')}`}>
+        <div className={`main ${(started ? 'quizpage' : 'startpage')}`}>
             <img src='./background.png' className='bg' /> 
             
             

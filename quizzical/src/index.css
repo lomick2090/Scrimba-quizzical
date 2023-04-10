@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300&display=swap');
 
 body{
     margin: 0;
@@ -27,6 +28,7 @@ body{
     align-items: center;
 }
 
+
 .startpage > h1 {
     font-weight: 700;
     font-size: 8vw;
@@ -43,4 +45,37 @@ body{
     background: #4D5B9E;
     border-radius: 15px;
     padding: 1vw 2vw 1vw 2vw;
+}
+
+.quizpage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.question {
+    padding: 0px 0px 1vw 0px;
+    width: 80vw;
+    border-bottom: 0.794239px solid #DBDEF0;
+}
+
+.question > h1 {
+    font-size: 1.75vw;
+}
+
+.answerdiv {
+    font-family: 'Inter', 'Karla', sans-serif;
+    display: flex;
+    justify-content: flex-start;
+
+}
+
+.answer {
+    margin-right: 1vw;
+    font-size: 1.2vw;
+    padding: .3vw 1vw .3vw 1vw;
+    background-color: transparent;
+    border-radius: 8px;
+    border: 1px solid #4D5B9E;
 }

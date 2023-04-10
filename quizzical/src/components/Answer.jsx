@@ -2,8 +2,8 @@ import React from "react";
 
 export default function Answer(props) {
     return(
-        <div className="Answer">
+        <button className="answer">
             {props.value}
-        </div>
+        </button>
     )
 }
