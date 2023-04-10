@@ -65,16 +65,16 @@ body{
     color: #293264;
 }
 
-.answerdiv {
-    font-family: 'Inter', 'Karla', sans-serif;
+.answerdiv { 
     display: flex;
     justify-content: flex-start;
 
 }
 
 .answer {
+    font-size:1.2vw;
+    font-family: 'Inter', 'Karla', sans-serif;;
     margin-right: 1vw;
-    font-size: 1.2vw;
     padding: .3vw 1vw .3vw 1vw;
     background-color: transparent;
     border-radius: 8px;
@@ -89,4 +89,26 @@ input[type='radio'] {
 input[type='radio']:checked + label {
     background-color: #D6DBF5;
     border: none
+}
+
+.buttondiv {
+    display:flex;
+    justify-content: center;
+
+}
+
+.submit {
+    margin-top: 10px;
+    color: #F5F7FB;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1vw;
+    padding: 0.5vw;
+    width: 8vw;
+    height: 3w;
+    background: #4D5B9E;
+    border-radius: 10px;
+    text-align: center;
+    text-overflow: none;
 }
