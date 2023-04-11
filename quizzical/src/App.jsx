@@ -90,7 +90,6 @@ export default function App() {
                 }
             })
         })
-        console.log(questions)
     }
 
 
@@ -110,7 +109,11 @@ export default function App() {
                 (started) ? 
                     <form>
                         {questionElements} 
-                        <div className="buttondiv"><button className='submit' onClick={checkAnswers}>check answers</button></div>
+                        <div className="buttondiv">
+                            <button className='submit' onClick={checkAnswers}>
+                                check answers
+                            </button>
+                        </div>
                     </form>
                     :
                     <StartPage 
