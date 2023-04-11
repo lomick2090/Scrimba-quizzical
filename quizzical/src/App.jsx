@@ -2,98 +2,95 @@ import React from 'react'
 import StartPage from './components/StartPage'
 import Question from './components/Question'
 import Answer from './components/Answer'
+import he from 'he'
 
 export default function App() {
     const [started, setStarted] = React.useState(false)
     const [questions, setQuestions] = React.useState([])
-    const [userAnswers, setUserAnswers] = React.useState([])
-    const [questionElements, setQuestionElements] = React.useState([])
 
     async function initializeQuestions() {
 
         const result = await fetch('https://opentdb.com/api.php?amount=5')
         const data = await result.json()
         
-       
+
         //let questionData = []
         const questionData = await data.results.map(input => {
+            let correctIndex = Math.floor(Math.random() * input.incorrect_answers.length)
+            let answerArrayCopy = input.incorrect_answers.slice()
+            answerArrayCopy.splice(correctIndex, 0, input.correct_answer);
             return ({
-                question: (input.question).replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&eacute;/g, 'e').replace(/&pi;/g, 'pi').replace(/&amp;/, '&'),
-                incorrect_answers: (input.incorrect_answers.map(answer => answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&eacute;/g, 'e').replace(/&pi;/g, 'pi').replace(/&auml;/g, 'a').replace(/&amp;/, '&'))),
-                correct_answer: (input.correct_answer).replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&eacute;/g, 'e').replace(/&pi;/g, 'pi').replace(/&auml;/g, 'a')
+                question: he.decode(input.question),
+                answers: answerArrayCopy.map(answer => he.decode(answer)),
+                correct_answer: he.decode(input.correct_answer),
+                selected_answer: null
+                // question: (input.question).replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&eacute;/g, 'e').replace(/&pi;/g, 'pi').replace(/&amp;/, '&'),
+                // answers: (answerArrayCopy.map(answer => answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&eacute;/g, 'e').replace(/&pi;/g, 'pi').replace(/&auml;/g, 'a').replace(/&amp;/, '&'))),
+                // correct_answer: (input.correct_answer).replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&eacute;/g, 'e').replace(/&pi;/g, 'pi').replace(/&auml;/g, 'a').replace(/&amp;/, '&'),replace,
+                // selected_answer: false
             }) 
         })
+
         setQuestions(questionData);
-        
-        
-        setUserAnswers(() => {
-            let newUserAnswers = [];
-            questionData.map(input => {
-                newUserAnswers.push({
-                    question: input.question,
-                    answer: ''
-                })
-            })
-            return newUserAnswers
-        })
-
-        setQuestionElements(() => {
-            return questionData.map(question => {
-                let answerElements = []
-    
-                let correctIndex = Math.floor(Math.random() * question.incorrect_answers.length)
-    
-                let answerArrayCopy = question.incorrect_answers.slice()
-    
-                answerArrayCopy.splice(correctIndex, 0, question.correct_answer);
-                
-                
-                for (let j = 0; j < answerArrayCopy.length; j++ ) {
-                    let correct = (j == correctIndex) ? true : false;
-                    answerElements.push(
-                        <Answer 
-                            className='answer' 
-                            value={answerArrayCopy[j]} 
-                            key={j} 
-                            correct={correct} 
-                            name={question.question} 
-                            updateAnswer={updateAnswer} 
-                        />
-                    )
-                }
-
-                return (
-                    <Question 
-                        question={question.question} 
-                        key={question.question}
-                        answerElements={answerElements}
-                    />
-                )
-            })
-        })
-    }
-    
-
-    function updateAnswer(event, questionAnswered, newUserAnswer) {
-        console.log(userAnswers)
-        setUserAnswers(prevUserAnswers => {
-            prevUserAnswers.map(singleUserAnswer => {
-                if (singleUserAnswer.question == questionAnswered) {
-                    return {
-                        ...singleUserAnswer,
-                        answer: newUserAnswer
-                    }
-                } else {
-                    return singleUserAnswer
-                }
-            })
-        })
-
     }
 
     function checkAnswers(event) {
         event.preventDefault()
-        console.log(event)
+        console.log(questions)
+        let correctNumber = 0;
+        questions.map(question => {
+            if (question.correct_answer == question.selected_answer) {
+                correctNumber++
+            }
+        })
+        console.log(correctNumber)
+    }
+
+     
+    const questionElements = questions.map(question => {
+        let answerElements = []
+        
+        for (let j = 0; j < question.answers.length; j++ ) {
+            let selected = (question.selected_answer == question.answers[j]) ? true : false;
+            answerElements.push(
+                <Answer 
+                    className='answer' 
+                    value={question.answers[j]} 
+                    key={j}  
+                    question={question.question} 
+                    updateAnswer={updateAnswer} 
+                    selected={selected}
+                />
+            )
+        }
+
+        return (
+            <Question 
+                question={question.question} 
+                key={question.question}
+                answerElements={answerElements}
+            />
+        )
+    })
+
+
+    
+    function updateAnswer(questionAnswered, newUserAnswer) {
+        setQuestions(prevQuestions => {
+            return prevQuestions.map(question => {
+                if (question.question == questionAnswered) {
+                    return {
+                        ...question,
+                        selected_answer: newUserAnswer
+                    }
+                } else {
+                    return {
+                        ...question
+                    }
+                }
+            })
+        })
+        console.log(questions)
     }
 
 

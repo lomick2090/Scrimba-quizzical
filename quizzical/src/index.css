@@ -79,7 +79,7 @@ body{
     background-color: transparent;
     border-radius: 8px;
     border: 1px solid #4D5B9E;
-    text-overflow: none;
+    white-space: nowrap;
 } 
 
 input[type='radio'] {
@@ -87,7 +87,7 @@ input[type='radio'] {
 
 }
 
-input[type='radio']:checked + label {
+label.selected {
     background-color: #D6DBF5;
     border: none
 }
