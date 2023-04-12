@@ -13,7 +13,12 @@ export default function Answer(props) {
             />
 
             <label 
-                className={`answer ${props.selected && 'selected'}`} 
+                className={
+                    `answer 
+                    ${(props.selected && !props.finished) ? 'selected' : ''} 
+                    ${(props.finished && props.correct) ? 'finishedcorrect' : ''}
+                    ${(props.finished && props.selected) ? 'finishedselected' : ''}`
+                } 
                 htmlFor={props.question + props.value}
             >
                 {props.value}

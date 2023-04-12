@@ -92,10 +92,28 @@ label.selected {
     border: none
 }
 
+.finishedselected {
+    background-color: #F8BCBC;
+    border: none;
+}
+
+.finishedcorrect {
+    background-color: #94D7A2;
+    border: none;
+}
+
 .buttondiv {
     display:flex;
     justify-content: center;
+    align-items: center;
 
+}
+
+.buttondiv > p {
+    font-size: 1.7vw;
+    font-weight:bold;
+    color: #293264;
+    margin-right: 3vw;
 }
 
 .submit {
