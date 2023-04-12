@@ -3,6 +3,7 @@ import StartPage from './components/StartPage'
 import Question from './components/Question'
 import Answer from './components/Answer'
 import he from 'he'
+import Confetti from 'react-confetti'
 
 export default function App() {
     const [started, setStarted] = React.useState(false)
@@ -110,7 +111,7 @@ export default function App() {
     return (
         <div className={`main ${(started ? 'quizpage' : 'startpage')}`}>
             <img src='./background.png' className='bg' /> 
-            
+            {(correct == 5) && <Confetti />}
             
             {
                 (started) ? 
